@@ -13,10 +13,25 @@ void loop() {
   if (Serial.available() > 0)
   {
     int val = Serial.read();
-    for (int i = 0; i < 9; i++) {
-      if (bitRead(val, i) > 0)
-      {
-        digitalWrite(thrust0 + i, HIGH);
+    if (val == 255)
+    {
+      digitalWrite(thrust0, HIGH);
+    }
+    else if (val == 3)
+    {
+      digitalWrite(thrust0, LOW);      
+    }
+    else
+    {
+      for (int i = 0; i < 8; i++) {
+        if (bitRead(val, i) > 0)
+        {
+          digitalWrite(thrust0 + 1 + i, HIGH);
+        }
+        else
+        {
+          digitalWrite(thrust0 + 1 + i, LOW);
+        }
       }
     }
   }
